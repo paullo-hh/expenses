@@ -1,6 +1,6 @@
 import 'package:expenses/models/transaction.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+import 'package:intl/intl.dart';
 
 void main() {
   runApp(const ExpensesApp());
@@ -31,10 +31,10 @@ class MyHomePage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text(
-          "NoBanks",
+          "Expenses",
         ),
-        backgroundColor: Color.fromARGB(255, 109, 0, 160),
-        foregroundColor: Color.fromARGB(255, 255, 255, 255),
+        backgroundColor: const Color.fromARGB(255, 69, 89, 204),
+        foregroundColor: const Color.fromARGB(255, 255, 255, 255),
       ),
       body: Column(
           mainAxisAlignment: MainAxisAlignment.start,
@@ -44,12 +44,16 @@ class MyHomePage extends StatelessWidget {
               width: double.infinity,
               height: 100,
               child: const Card(
-                color: Color.fromARGB(255, 109, 0, 160),
+                color: Color.fromARGB(255, 69, 89, 204),
                 elevation: 4,
                 child: Padding(
-                  padding: EdgeInsets.all(5),
+                  padding: EdgeInsets.all(10),
                   child: Text(
-                      'If you are using Visual Studio Code, highlight your widget, click on the lightbulb, and select Wrap with Padding from the menu.'),
+                    'If you are using Visual Studio Code, highlight your widget, click on the lightbulb, and select Wrap with Padding from the menu.',
+                    style: TextStyle(
+                      color: Colors.white,
+                    ),
+                  ),
                 ),
               ),
             ),
@@ -57,27 +61,13 @@ class MyHomePage extends StatelessWidget {
               children: _transactions.map((tr) {
                 return Card(
                   child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
-                      Container(
-                        width: 70,
-                        height: 70,
-                        margin: const EdgeInsets.symmetric(
-                          horizontal: 15,
-                          vertical: 10,
-                        ),
-                        decoration: BoxDecoration(
-                            color: const Color.fromARGB(255, 128, 33, 172),
-                            borderRadius: BorderRadius.circular(100)),
-                        padding: const EdgeInsets.all(10),
-                        child: Center(
-                          child: Text(
-                            textAlign: TextAlign.center,
-                            tr.value.toString(),
-                            style: const TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 14,
-                                color: Color.fromARGB(255, 255, 255, 255)),
-                          ),
+                      const Center(
+                        child: Icon(
+                          Icons.shopping_bag_outlined,
+                          color: Colors.black,
+                          size: 24,
                         ),
                       ),
                       Column(
@@ -91,13 +81,39 @@ class MyHomePage extends StatelessWidget {
                             ),
                           ),
                           Text(
-                            tr.date.toString(),
+                            textAlign: TextAlign.start,
+                            'R\$ ${tr.value.toStringAsFixed(2)}',
                             style: const TextStyle(
-                              color: Color.fromARGB(255, 117, 117, 117),
-                            ),
+                                fontWeight: FontWeight.bold,
+                                fontSize: 13,
+                                color: Color.fromARGB(255, 69, 89, 204)),
                           ),
                         ],
                         crossAxisAlignment: CrossAxisAlignment.start,
+                      ),
+                      Container(
+                        width: 75,
+                        height: 40,
+                        margin: const EdgeInsets.symmetric(
+                          horizontal: 15,
+                          vertical: 10,
+                        ),
+                        padding: const EdgeInsets.only(
+                          right: 5,
+                        ),
+                        alignment: Alignment.centerLeft,
+                        decoration: const BoxDecoration(
+                          color: Color.fromARGB(0, 49, 50, 53),
+                        ),
+                        child: Center(
+                          child: Text(
+                            DateFormat('dd MMM').format(tr.date).toUpperCase(),
+                            style: const TextStyle(
+                              fontSize: 13,
+                              color: Color.fromARGB(255, 117, 117, 117),
+                            ),
+                          ),
+                        ),
                       ),
                     ],
                   ),
